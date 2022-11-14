@@ -16,8 +16,8 @@ import userRoutes from './routes/users';
 
 const app = express();
 
-// const origin = process.env.ORIGIN;
-const origin = "http://localhost:3000";
+const origin = process.env.ORIGIN;
+//const origin = "http://localhost:3000";
 
 app.use(
     cors({
@@ -46,8 +46,8 @@ app.use("/api/users", userRoutes)
 let port = 4000;
 
 app.listen(port, async () => { 
-    console.log(`server running at http://localhost:${port}`);
-
+    //console.log(`server running at http://localhost:${port}`);
+    console.log(`server running at ${process.env.APP_URL}`);
     //4000포트로 서버 오픈
     AppDataSource.initialize().then(() => {
         console.log("database initialized")
