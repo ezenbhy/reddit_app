@@ -16,7 +16,7 @@ const StateContext = createContext<State>({
     loading: true
 });
 
-const DispatchContext = createContext<any>(null);
+const DispatchContext = createContext<any>(null);//업데이트용
 
 interface Action {
     type: string;

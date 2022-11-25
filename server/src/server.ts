@@ -14,12 +14,12 @@ import voteRoutes from './routes/votes';
 
 import userRoutes from './routes/users';
 
-const app = express();
+const app = express(); //app은 객체
 
 const origin = process.env.ORIGIN;
 //const origin = "http://localhost:3000";
 
-app.use(
+app.use( //app.use()는 사용자의 요청이 있을때 마다 실행
     cors({
     origin,
     credentials: true
@@ -30,8 +30,8 @@ app.use(morgan('dev'));//요청과 응답에 대한 정보를 콘솔에 기록
 app.use(cookieParser());//요청된 쿠키를 쉽게 추출할 수 있도록 도와주는 미들웨어
 dotenv.config();
 
-app.get("/", (_, res) => res.send("running"));
-app.use("/api/auth", authRoutes) // app.use("url", 함수) url이 들어오면 함수실행한다.
+app.get("/", (_, res) => res.send("running"));//app.get("경로",콜백함수) - 콜백함수는 사용자가 해당 경로에 접속했을때 호출할 함수
+app.use("/api/auth", authRoutes) // app.use("url", 콜백함수) url이 들어오면 함수실행한다.
 app.use("/api/subs", subRoutes)
 
 

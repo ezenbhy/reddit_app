@@ -12,7 +12,7 @@ console.log('token', token);
 
 if (!token) return next();
 
-//verify 메소드와 jwt secret을 이용해서 토큰 Decode
+//verify 메소드와 jwt secret을 이용해서 토큰 Decode 디코딩
 const { username }: any = jwt.verify(token, process.env.JWT_SECRET);
 
 //토큰에서 나온 유저 이름을 이용해서 유저 정보 데이터베이스에서 가져오기

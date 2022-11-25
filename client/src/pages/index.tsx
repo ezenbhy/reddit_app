@@ -16,18 +16,18 @@ import useSWRInfinite from 'swr/infinite';
 
 import PostCard from '../components/PostCard'
 
-const Home: NextPage = () => {
+const Home: NextPage = () => {//next.js에서 페이지를 담당하는 컴포넌트를 위한 NextPage 타입 제공.   컴포넌트 이름.getInitialProps = () => ({});
   const { authenticated } = useAuthState();
 
   const fetcher = async (url: string) => {
-    return await axios.get(url).then(res => res.data)
+    return await axios.get(url).then(res => res.data) //routes/subs.ts파일에 router.get("/sub/topSubs", topSubs);
   }
   //const address = "http://localhost:4000/api/subs/sub/topSubs";
     const address = `/subs/sub/topSubs`;
 
   
 
-  const { data: topSubs } = useSWR<Sub[]>(address, fetcher)
+  const { data: topSubs } = useSWR<Sub[]>(address, fetcher) //stale-while-revalidate, address를 fetcher함수로 전달
   console.log("topSubs",topSubs);//생성된 커뮤니티 갯수 나옴
 
   const getKey = (pageIndex: number, previousPageData: Post[]) => {

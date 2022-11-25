@@ -20,7 +20,7 @@ const Register = () => {
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         try {
-            const res = await axios.post('/auth/register', {
+            const res = await axios.post('/auth/register', {//보내기
                 email,
                 password,
                 username

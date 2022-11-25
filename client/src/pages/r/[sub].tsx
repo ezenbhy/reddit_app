@@ -46,7 +46,7 @@ const SubPage = () => {
         const fileInput = fileInputRef.current;
         if (fileInput) {
             fileInput.name = type;
-            fileInput.click();
+            fileInput.click(); //fileInputRef.current.click()
         }
     }
     const uploadImage = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +55,8 @@ const SubPage = () => {
         const file = event.target.files[0];
         console.log('file', file);
 
-        const formData = new FormData();
-        formData.append("file", file);
+        const formData = new FormData();// 새로운 폼 객체 생성
+        formData.append("file", file);// 서버에서 file 라는 키에 파일을 담기
         formData.append("type", fileInputRef.current!.name);
 
         try {

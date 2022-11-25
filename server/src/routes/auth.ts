@@ -22,7 +22,7 @@ const mapError = (errors: Object[]) => {
   };
 
 const register = async (req: Request, res: Response) => {
-    const { email, username, password } = req.body;
+    const { email, username, password } = req.body;//register컴포넌트에서 보낸거 받기
     console.log(email, username, password);
 
     try {
@@ -47,7 +47,7 @@ const register = async (req: Request, res: Response) => {
         user.password = password;
     
         // 엔티티에 정해 놓은 조건으로 user 데이터의 유효성 검사를 해줌.
-        errors = await validate(user);
+        errors = await validate(user); //동일한 값으로 회원가입 하면 에러
         console.log('errors',errors)
     
         if (errors.length > 0) return res.status(400).json(mapError(errors));
@@ -91,13 +91,13 @@ const login = async (req: Request, res: Response) => {
       // 비밀번호가 맞다면 토큰 생성
       const token = jwt.sign({ username }, process.env.JWT_SECRET);
   
-      // 쿠키저장
+      // 쿠키저장- 웹 브라우저와 웹 서버가 주고 받는 정보
       res.set(
         "Set-Cookie",
         cookie.serialize("token", token, {
-          httpOnly: true,
-          maxAge: 60 * 60 * 24 * 7,
-          path: "/",
+          httpOnly: true, //보안관련내용,자바스크립트(클라이언트)는 쿠키값을 가져올수 없게 하는 옵션
+          maxAge: 60 * 60 * 24 * 7, //쿠키 만료 시간
+          path: "/", //해당 디레터리와 하위 디렉터리에서만 쿠키가 활성화 됨
         })
       );
   
@@ -111,18 +111,18 @@ const login = async (req: Request, res: Response) => {
   const logout = async (_: Request, res: Response) => {
     res.set(
       "Set-Cookie",
-      cookie.serialize("token", "", {
+      cookie.serialize("token", "", { //cookie의 이름,값,옵션을 Set-Cookie 헤더의 문자열로 직렬화한다.
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        expires: new Date(0),
+        secure: process.env.NODE_ENV === "production", //https 에서만 쿠키사용
+        sameSite: "strict",//엄격한 모드로 동일한 사이트만 접근할 수 있도록 설정
+        expires: new Date(0), //만료일0 즉시 바로 기간 만료 시킴
         path: "/",
       })
     );
     res.status(200).json({ success: true });
   };
 
-const router = Router();
+const router = Router(); //router객체
 
 router.get("/me", userMiddleware, authMiddleware, me);
 router.post("/register", register);
